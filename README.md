@@ -1,186 +1,231 @@
-# 🛡️ Enterprise SOC Detection Lab — Splunk + Windows + Active Directory + Web
+# 🛡️ Enterprise SOC & AWS Cloud Security Monitoring Lab
 
 ![Splunk](https://img.shields.io/badge/SIEM-Splunk-FF6B35?style=flat-square&logo=splunk)
 ![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red?style=flat-square)
 ![Windows](https://img.shields.io/badge/Platform-Windows-0078D6?style=flat-square&logo=windows)
 ![Active Directory](https://img.shields.io/badge/Active%20Directory-soc.local-purple?style=flat-square)
 ![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?style=flat-square&logo=amazonaws)
-![DVWA](https://img.shields.io/badge/Web-DVWA%20Labs-orange?style=flat-square)
-![Labs](https://img.shields.io/badge/Detection%20Labs-13%20Completed-brightgreen?style=flat-square)
+![Splunk Enterprise](https://img.shields.io/badge/Splunk-Enterprise-black?style=flat-square&logo=splunk)
+![Cloud Security](https://img.shields.io/badge/Cloud-Security%20Monitoring-orange?style=flat-square)
 
-> A fully cloud-based Enterprise SOC lab deployed on AWS, covering **13 real-world attack detection scenarios** across three domains — Windows Endpoint, Active Directory, and Web Application attacks. Each lab includes full attack simulation, Windows Event Log and Apache log analysis, Splunk SPL detection queries, MITRE ATT&CK mapping, and a complete SOC investigation report.
+> A fully cloud-based Enterprise SOC lab deployed on AWS integrating Windows Active Directory, endpoint monitoring, vulnerable web application attacks, and AWS cloud security monitoring with Splunk SIEM. This project demonstrates real-world attack simulation, log collection, detection engineering, cloud monitoring, alerting pipelines, and SOC investigation workflows across both on-premise-style infrastructure and AWS native services.
 
 ---
 
-## 🏗️ SOC Architecture
+# 🏗️ Unified SOC + AWS Cloud Monitoring Architecture
 
-<div>
-  <p align="center">
-    <img src="assets/main architecture.png" width="900">
-  </p>
+<div align="center">
+  <img src="./assets/main architecture.png" width="1200">
 </div>
 
+---
+
+# 📌 Project Overview
+
+This project combines:
+
+- Enterprise SOC infrastructure
+- Windows endpoint monitoring
+- Active Directory attack detection
+- Web application attack simulation
+- AWS cloud security monitoring
+- Splunk SIEM integration
+- Detection engineering workflows
+- Real-time alerting pipeline
+
+The lab environment was deployed in AWS using EC2 instances, CloudTrail, CloudWatch, SNS, SQS, S3, and Splunk.
 
 ---
 
-## 📋 Detection Lab Index
+# 🔥 Security Domains Covered
 
-### 🖥️ Endpoint Attacks — `index=end_point`
+| Domain | Description |
+|---|---|
+| Endpoint Security | Windows attack simulations & detections |
+| Active Directory Security | Domain attack monitoring |
+| Web Application Security | DVWA attack simulations |
+| AWS Cloud Security | CloudTrail + CloudWatch detections |
+| SIEM Monitoring | Splunk centralized log analysis |
+
+---
+
+# ☁️ AWS Cloud Security Monitoring Implementation
+
+The project includes a complete AWS cloud-native monitoring pipeline.
+
+## AWS Monitoring Flow
+
+```text
+AWS Services → CloudTrail → CloudWatch Logs → Metric Filters
+→ CloudWatch Alarms → SNS → SQS → Splunk
+```
+
+---
+
+# ☁️ AWS Services Integrated
+
+| Service | Purpose |
+|---|---|
+| CloudTrail | Capture AWS API activity |
+| CloudWatch Logs | Log monitoring |
+| Metric Filters | Event detection |
+| CloudWatch Alarms | Real-time alerting |
+| SNS | Email notifications |
+| SQS | Queue integration with Splunk |
+| S3 | Log archival |
+| Splunk | SIEM monitoring |
+
+---
+
+# 🚨 AWS Cloud Detection Labs
+
+## ☁️ Security Group Monitoring
+
+| Detection | Event Name | Severity |
+|---|---|---|
+| Security Group Creation | CreateSecurityGroup | 🟡 Medium |
+| Inbound Rule Addition | AuthorizeSecurityGroupIngress | 🔴 High |
+| Rule Removal | RevokeSecurityGroupIngress | 🔴 High |
+| Security Group Deletion | DeleteSecurityGroup | 🔴 Critical |
+
+---
+
+## ☁️ S3 Bucket Monitoring(inprogress)
+
+| Detection | Event Name | Severity |
+|---|---|---|
+| Bucket Policy Change | PutBucketPolicy | 🔴 Critical |
+| Bucket Policy Deletion | DeleteBucketPolicy | 🔴 Critical |
+| Bucket ACL Modification | PutBucketAcl | 🔴 High |
+| Public Access Block Change | PutBucketPublicAccessBlock | 🔴 High |
+| Bucket Deletion | DeleteBucket | 🔴 Critical |
+
+---
+
+# 🖥️ Endpoint Attacks — `index=end_point`
 
 | Lab | Attack | Event ID | MITRE | Severity |
 |---|---|---|---|---|
-| [E1](endpoint-attacks/E1_Malware_Execution_4688.md) | Malware Execution Simulation | 4688 | T1204, T1059 | 🔴 High |
-| [E2](endpoint-attacks/E2_PowerShell_Encoded_4688.md) | Suspicious PowerShell Encoded Command | 4688 | T1059.001, T1027 | 🔴 High |
-| [E3](endpoint-attacks/E3_Registry_Persistence_4657.md) | Persistence via Registry Run Key | 4657 | T1547.001 | 🔴 High |
-| [E4](endpoint-attacks/E4_Privilege_Escalation_4732.md) | Privilege Escalation via Administrators Group | 4720, 4732 | T1098 | 🔴 Critical |
-| [E5](endpoint-attacks/E5_Service_Creation_7045.md) | Malicious Service Creation | 7045 | T1543.003 | 🔴 Critical |
+| E1 | Malware Execution Simulation | 4688 | T1204, T1059 | 🔴 High |
+| E2 | Suspicious PowerShell Encoded Command | 4688 | T1059.001, T1027 | 🔴 High |
+| E3 | Persistence via Registry Run Key | 4657 | T1547.001 | 🔴 High |
+| E4 | Privilege Escalation via Administrators Group | 4720, 4732 | T1098 | 🔴 Critical |
+| E5 | Malicious Service Creation | 7045 | T1543.003 | 🔴 Critical |
 
-### 🏢 Active Directory Attacks — `index=windows` / `index=ad_logs`
+---
+
+# 🏢 Active Directory Attacks — `index=windows`
 
 | Lab | Attack | Event ID | MITRE | Severity |
 |---|---|---|---|---|
-| [AD-01](active-directory-attacks/AD-01_Brute_Force_RDP_4625.md) | Brute Force via RDP | 4625, 4624 | T1110 | 🔴 High |
-| [AD-02](active-directory-attacks/AD-02_Account_Lockout_4740.md) | Account Lockout Detection | 4740, 4625 | T1110 | 🟡 Medium |
-| [AD-03](active-directory-attacks/AD-03_User_Group_Creation.md) | Backdoor User & Group Creation | 4720, 4727, 4728 | T1136, T1098 | 🔴 Critical |
+| AD-01 | RDP Brute Force | 4625, 4624 | T1110 | 🔴 High |
+| AD-02 | Account Lockout Detection | 4740 | T1110 | 🟡 Medium |
+| AD-03 | Backdoor User & Group Creation | 4720, 4727, 4728 | T1136, T1098 | 🔴 Critical |
 
-### 🌐 Web Application Attacks — `index=web_logs`
+---
+
+# 🌐 Web Application Attacks — `index=web_logs`
 
 | Lab | Attack | Payload | MITRE | Severity |
 |---|---|---|---|---|
-| [W1](web-attacks/W1_SQL_Injection.md) | SQL Injection | `1' OR '1'='1` | T1190 | 🔴 High |
-| [W2](web-attacks/W2_Brute_Force_Login.md) | Brute Force Login | Credential Stuffing | T1110 | 🔴 High |
-| [W3](web-attacks/W3_Command_Injection.md) | Command Injection (RCE) | `127.0.0.1;whoami` | T1059 | 🔴 High |
-| [W4](web-attacks/W4_File_Upload_WebShell.md) | File Upload / Web Shell | `shell.php?cmd=whoami` | T1505.003 | 🔴 Critical |
-| [W5](web-attacks/W5_Local_File_Inclusion.md) | Local File Inclusion (LFI) | `../../../../etc/passwd` | T1006 | 🔴 High |
+| W1 | SQL Injection | `' OR '1'='1` | T1190 | 🔴 High |
+| W2 | Brute Force Login | Credential Stuffing | T1110 | 🔴 High |
+| W3 | Command Injection | `127.0.0.1;whoami` | T1059 | 🔴 High |
+| W4 | File Upload Web Shell | `shell.php?cmd=whoami` | T1505.003 | 🔴 Critical |
+| W5 | Local File Inclusion | `../../../../etc/passwd` | T1006 | 🔴 High |
 
 ---
 
-## 🏗️ Infrastructure Setup
+# 📊 Splunk SIEM Integration
 
-| Step | Document | Purpose |
+Splunk was configured as the centralized SIEM platform for:
+
+- Windows Security Logs
+- Sysmon Logs
+- Active Directory Logs
+- Apache Access Logs
+- AWS CloudTrail Events
+- CloudWatch Alerts
+- SNS/SQS Cloud Notifications
+
+---
+
+# 🔍 Example AWS Splunk Detections
+
+## Security Group Modification Detection
+
+```spl
+index=aws_cloudtrail eventName=AuthorizeSecurityGroupIngress
+| stats count by userIdentity.arn sourceIPAddress awsRegion
+```
+
+---
+
+## Security Group Deletion Detection
+
+```spl
+index=aws_cloudtrail eventName=DeleteSecurityGroup
+| table _time userIdentity.arn sourceIPAddress awsRegion
+```
+
+---
+
+## S3 Bucket Policy Modification
+
+```spl
+index=aws_cloudtrail eventName=PutBucketPolicy
+| table _time requestParameters.bucketName userIdentity.arn
+```
+
+---
+
+# 🗺️ MITRE ATT&CK Coverage
+
+| Tactic | Technique | ID |
 |---|---|---|
-| 01 | [VPC Setup](setup/01_VPC_Setup.md) | Custom AWS VPC, subnet, internet gateway |
-| 02 | [Splunk Deployment](setup/02_Splunk_Deployment.md) | Splunk Enterprise on Ubuntu EC2 |
-| 03 | [Active Directory](setup/03_Active_Directory_Setup.md) | Windows Server DC, domain soc.local |
-| 04 | [Endpoint Setup](setup/04_Endpoint_Deployment.md) | Windows endpoint, domain join, log forwarding |
-| 05 | [Web Server Setup](setup/05_Web_Server_Setup.md) | Apache + DVWA on Ubuntu EC2 |
+| Execution | Command & Scripting Interpreter | T1059 |
+| Persistence | Registry Run Keys | T1547.001 |
+| Privilege Escalation | Account Manipulation | T1098 |
+| Credential Access | Brute Force | T1110 |
+| Initial Access | Exploit Public-Facing Application | T1190 |
+| Persistence | Web Shell | T1505.003 |
+| Discovery | File and Directory Discovery | T1083 |
+| Defense Evasion | Obfuscated Files | T1027 |
 
 ---
 
-## 🗺️ MITRE ATT&CK Coverage
+# 🎯 Key Skills Demonstrated
 
-| Tactic | Technique | ID | Labs |
-|---|---|---|---|
-| Execution | Command & Scripting Interpreter | T1059 | E1, E2, W3 |
-| Execution | PowerShell | T1059.001 | E2 |
-| Execution | User Execution | T1204 | E1 |
-| Defense Evasion | Obfuscated Files | T1027 | E2 |
-| Persistence | Registry Run Keys | T1547.001 | E3 |
-| Persistence | Windows Service | T1543.003 | E5 |
-| Persistence | Create Account | T1136 | AD-03 |
-| Privilege Escalation | Account Manipulation | T1098 | E4, AD-03 |
-| Credential Access | Brute Force | T1110 | AD-01, AD-02, W2 |
-| Initial Access | Exploit Public-Facing App | T1190 | W1 |
-| Initial Access | Web Shell | T1505.003 | W4 |
-| Discovery | Path Traversal | T1006 | W5 |
+- SOC Operations
+- SIEM Engineering
+- Detection Engineering
+- Cloud Security Monitoring
+- Splunk Administration
+- Active Directory Security
+- Web Application Security
+- AWS Security Monitoring
+- Threat Detection
+- Log Analysis
+- Incident Investigation
 
 ---
 
-## 🔗 Attack Chain Correlation
+# 🚀 Future Enhancements
 
-### Endpoint Attack Chain
-```
-Malware Execution (4688)
-    ↓
-Encoded PowerShell (4688) ← Defense Evasion
-    ↓
-Registry Run Key (4657) ← Persistence
-    ↓
-Admin Group Escalation (4732) ← Privilege Escalation
-    ↓
-Service Creation (7045) ← SYSTEM-level Persistence
-```
-
-### Active Directory Attack Chain
-```
-RDP Brute Force (4625 × N)
-    ↓
-Successful Login (4624) ← OR ← Account Lockout (4740)
-    ↓
-Backdoor User Created (4720)
-    ↓
-Security Group Created (4727)
-    ↓
-User Added to Group (4728) ← Full Domain Persistence
-```
+- [ ] Add GuardDuty integration
+- [ ] Add AWS Config detections
+- [ ] Add Lambda automated response
+- [ ] Build Splunk dashboards
+- [ ] Add Kerberoasting attacks
+- [ ] Add Pass-the-Hash detection
+- [ ] Add XSS & CSRF web attacks
+- [ ] Add Terraform deployment
 
 ---
 
-## 📊 Splunk Index Reference
+# 👤 Author
 
-| Index | Source | Labs |
-|---|---|---|
-| `end_point` | Windows Endpoint Security & System logs | E1–E5 |
-| `windows` | Active Directory Domain Controller logs | AD-01, AD-02 |
-| `ad_logs` | AD-specific PowerShell provisioned logs | AD-03 |
-| `web_logs` | Apache access & error logs (Ubuntu EC2) | W1–W5 |
+**Nadil** — Cybersecurity Student & SOC Enthusiast
 
----
-
-## 📁 Repository Structure
-
-```
-Enterprise-SIEM-SOLUTION/
-├── README.md
-├── setup/
-│   ├── 01_VPC_Setup.md
-│   ├── 02_Splunk_Deployment.md
-│   ├── 03_Active_Directory_Setup.md
-│   ├── 04_Endpoint_Deployment.md
-│   └── 05_Web_Server_Setup.md
-├── endpoint-attacks/
-│   ├── E1_Malware_Execution_4688.md
-│   ├── E2_PowerShell_Encoded_4688.md
-│   ├── E3_Registry_Persistence_4657.md
-│   ├── E4_Privilege_Escalation_4732.md
-│   └── E5_Service_Creation_7045.md
-├── active-directory-attacks/
-│   ├── AD-01_Brute_Force_RDP_4625.md
-│   ├── AD-02_Account_Lockout_4740.md
-│   └── AD-03_User_Group_Creation.md
-├── web-attacks/
-│   ├── W1_SQL_Injection.md
-│   ├── W2_Brute_Force_Login.md
-│   ├── W3_Command_Injection_RCE.md
-│   ├── W4_File_Upload_WebShell.md
-│   └── W5_Local_File_Inclusion.md
-├── splunk-queries/
-│   └── all_detection_queries.spl
-└── assets/
-    └── soc-architecture.png
-```
-
----
-
-## 🗺️ Roadmap
-
-- [ ] Rewrite all 13 labs in standardised SOC report format
-- [ ] Build unified Splunk dashboard covering all 3 attack categories
-- [ ] Add Kerberoasting and Pass-the-Hash AD labs
-- [ ] Add XSS and CSRF web attack labs
-- [ ] Write automated Splunk correlation alert rules
-
-
----
-
-## 👤 Author
-
-**Nadil** — Cybersecurity Student, Lovely Professional University
-
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-nadhilan-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/nadhilan/)
-[![GitHub](https://img.shields.io/badge/GitHub-Nadhil--an-black?style=flat-square&logo=github)](https://github.com/Nadhil-an)
-
----
-
-
+- GitHub: https://github.com/Nadhil-an
+- LinkedIn: https://www.linkedin.com/in/nadhilan/
